@@ -2,7 +2,6 @@ package com.example.controller;
 
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -70,8 +69,8 @@ public class SocialMediaController {
         return messageService.patchMsgByMessageId(messageId, editMsg.get("messageText"));
     }
 
-    // @GetMapping("/accounts/{accountId}/messages")
-    // public ResponseEntity<List<Message>> getAllMsgsByAccountId(@PathVariable("accountId") Integer accountId){
-    //     return messageService.getAllMsgsByAccountId(accountId);
-    // }
+    @GetMapping("/accounts/{accountId}/messages")
+    public ResponseEntity<List<Message>> getAllMsgsByAccountId(@PathVariable("accountId") Integer accountId){
+        return messageService.getAllMsgsByAccountId(accountId);
+    }
 }

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -54,7 +53,7 @@ public class MessageService {
 
     public ResponseEntity<Integer> patchMsgByMessageId(Integer messageId, String editMsg){
         Optional<Message> msg = messageRepository.findById(messageId);
-        
+
         if(!msg.isPresent() || editMsg.isBlank() || editMsg.isEmpty() || editMsg.length() >= 255){
             return ResponseEntity.status(400).body(null);
         }
@@ -64,9 +63,8 @@ public class MessageService {
         return ResponseEntity.status(200).body(1);
     }
 
-    // public ResponseEntity<List<Message>> getAllMsgsByAccountId(Integer accountId){
-    //     List<Message> existingMsgs = messageRepository.getAllMsgsByAccountId(accountId);
-    //     if(existingMsgs.size() == 0) return ResponseEntity.status(200).body(null);
-    //     return ResponseEntity.status(200).body(existingMsgs);
-    // }
+    public ResponseEntity<List<Message>> getAllMsgsByAccountId(Integer accountId){
+        List<Message> existingMsgs = messageRepository.findByPostedBy(accountId);
+        return ResponseEntity.status(200).body(existingMsgs);
+    }
 }
