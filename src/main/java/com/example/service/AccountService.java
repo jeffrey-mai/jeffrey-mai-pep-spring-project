@@ -1,7 +1,6 @@
 package com.example.service;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,5 +20,14 @@ public class AccountService {
 
         Account savedAcc = accountRepository.save(acc);
         return ResponseEntity.status(200).body(savedAcc);
+    }
+
+    public ResponseEntity<Account> login(Account acc){
+        Optional<Account> optionalAcc = accountRepository.findByUsername(acc.getUsername());
+        
+        if(optionalAcc.isPresent() && optionalAcc.get().getPassword().equals(acc.getPassword())){
+            return ResponseEntity.status(200).body(optionalAcc.get());
+        }
+        return ResponseEntity.status(401).body(null);
     }
 }
